@@ -1,161 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shankar Digital Hub</title>
 
 <style>
-body{
-  font-family: Arial;
-  background:#eef2f7;
-  margin:0;
-}
+body{font-family:Arial;margin:0;background:#eef2f7;}
+header{background:#0d47a1;color:white;padding:15px;text-align:center;font-size:22px;}
 
-header{
-  background:linear-gradient(45deg,#0d47a1,#1976d2);
-  color:white;
-  padding:15px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-}
+.container{padding:10px;}
 
-.search{
+.box{
+  background:white;
   padding:10px;
+  margin-bottom:10px;
+  border-radius:10px;
 }
 
-.search input{
+input,button{
   width:100%;
   padding:10px;
-  border-radius:10px;
+  margin-top:5px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+button{
+  background:#2ecc71;
+  color:white;
   border:none;
 }
 
-/* ADS BOX */
-.ad-box{
-  background:white;
-  margin:10px;
-  padding:10px;
-  text-align:center;
-  border-radius:10px;
+.admin{
+  background:#ff9800;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  padding:10px;
-}
-
-.card{
-  background:white;
-  padding:12px;
-  border-radius:12px;
-  text-align:center;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-.card img{
-  width:50px;
-  margin-bottom:8px;
-}
-
-.card a{
-  text-decoration:none;
-  color:black;
-  font-weight:bold;
-}
-
-.btn{
-  margin-top:8px;
-  background:#25D366;
-  color:white;
-  padding:8px;
-  border-radius:8px;
-}
-
-/* Floating Button */
-.floating{
+.whatsapp{
   position:fixed;
-  bottom:20px;
+  bottom:15px;
   right:15px;
-  background:#25D366;
+  background:#25d366;
   color:white;
-  padding:12px 15px;
-  border-radius:25px;
-  font-weight:bold;
+  padding:12px;
+  border-radius:30px;
+  text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-<header>🔥 CSC Digital Service Portal 🔥</header>
+<header>🔥 Shankar Digital Hub 🔥</header>
 
-<div class="search">
-<input type="text" placeholder="Search service...">
+<div class="container">
+
+<!-- LOGIN -->
+<div class="box">
+<h3>Login / Register</h3>
+<input id="user" placeholder="Enter Name">
+<button onclick="login()">Login</button>
 </div>
 
-<!-- TOP ADS -->
-<div class="ad-box">
-👉 यहाँ Google AdSense Ad आएगा
+<!-- FORM -->
+<div class="box">
+<h3>Service Request Form</h3>
+<input id="name" placeholder="Customer Name">
+<input id="service" placeholder="Service (Aadhar / Job etc)">
+<button onclick="save()">Submit</button>
 </div>
 
-<div class="grid">
-
-<!-- AADHAR -->
-<div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Aadhaar_Logo.svg/512px-Aadhaar_Logo.svg.png">
-<a href="https://uidai.gov.in">Aadhar Service</a>
-<div class="btn">Apply Now</div>
+<!-- DATA -->
+<div class="box">
+<h3>Customer Requests</h3>
+<div id="data"></div>
 </div>
 
-<!-- PM KISAN -->
-<div class="card">
-<img src="https://pmkisan.gov.in/Images/pmkisan-logo.png">
-<a href="https://pmkisan.gov.in">PM Kisan</a>
-<div class="btn">Check Status</div>
-</div>
-
-<!-- E SHRAM -->
-<div class="card">
-<img src="https://eshram.gov.in/assets/images/logo.png">
-<a href="https://eshram.gov.in">E Shram Card</a>
-<div class="btn">Register</div>
-</div>
-
-<!-- JOB -->
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
-<a href="https://ncs.gov.in">Job Apply</a>
-<div class="btn">Apply Now</div>
-</div>
-
-<!-- SCHOLARSHIP -->
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png">
-<a href="https://pfms.nic.in">Scholarship</a>
-<div class="btn">Apply</div>
-</div>
-
-<!-- ELECTRICITY -->
-<div class="card">
-<img src="https://www.uppcl.org/site/writereaddata/siteContent/images/logo.png">
-<a href="https://www.uppcl.org">Electricity Bill</a>
-<div class="btn">Pay Bill</div>
+<!-- ADMIN -->
+<div class="box">
+<h3>Admin Panel</h3>
+<button class="admin" onclick="clearData()">Clear All Data</button>
 </div>
 
 </div>
 
-<!-- MIDDLE ADS -->
-<div class="ad-box">
-👉 यहाँ दूसरा Ad लगेगा
-</div>
+<a class="whatsapp" href="https://wa.me/917467002020">WhatsApp</a>
 
-<!-- WHATSAPP BUTTON -->
-<a class="floating" href="https://wa.me/917467002020">
-💬 Apply via WhatsApp
-</a>
+<script>
+
+// LOGIN
+function login(){
+let name=document.getElementById("user").value;
+localStorage.setItem("user",name);
+alert("Welcome "+name);
+}
+
+// SAVE FORM
+function save(){
+let name=document.getElementById("name").value;
+let service=document.getElementById("service").value;
+
+let data=JSON.parse(localStorage.getItem("data"))||[];
+
+data.push({name,service});
+
+localStorage.setItem("data",JSON.stringify(data));
+
+load();
+}
+
+// LOAD DATA
+function load(){
+let data=JSON.parse(localStorage.getItem("data"))||[];
+let html="";
+
+data.forEach(d=>{
+  html+=`<p>👤 ${d.name} → ${d.service}</p>`;
+});
+
+document.getElementById("data").innerHTML=html;
+}
+
+// CLEAR
+function clearData(){
+localStorage.removeItem("data");
+load();
+}
+
+load();
+
+</script>
 
 </body>
-  </html>
+</html>
