@@ -1,109 +1,135 @@
-{cat:"नई category", name:"sarkari kam", link:"link"}<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="hi">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shankar Digital Hub</title>
+<title>Shashi Digital CSC Portal</title>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f6f9;}
-.header{background:#1565c0;color:white;text-align:center;padding:12px;font-size:20px;font-weight:bold;}
-.container{display:flex;}
-.column{width:50%;padding:5px;}
-.box{background:white;border:1px solid #ddd;margin-bottom:10px;border-radius:5px;}
-.title{background:#1976d2;color:white;padding:7px;font-size:14px;font-weight:bold;}
-.item{display:flex;align-items:center;padding:8px;border-bottom:1px solid #eee;}
-.item img{width:18px;margin-right:8px;}
-.item a{text-decoration:none;color:#333;font-size:13px;}
-.item:hover{background:#e3f2fd;}
-.ads{margin:10px;background:#fff3cd;padding:10px;text-align:center;border-radius:5px;}
-.whatsapp{position:fixed;bottom:10px;right:10px;background:#25d366;color:white;padding:12px;border-radius:25px;text-decoration:none;}
+body{margin:0;font-family:Arial;background:#f1f3f6;}
+
+/* HERO BANNER */
+.hero{
+height:100vh;
+background:linear-gradient(135deg,#0d47a1,#1976d2);
+color:#fff;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:14px;
+margin-bottom:20px;
+}
+
+.start-btn{
+background:#ff9800;
+border:none;
+padding:12px 20px;
+color:#fff;
+font-size:16px;
+border-radius:5px;
+}
+
+/* MAIN */
+.header{
+background:#0d47a1;color:#fff;text-align:center;padding:12px;
+}
+
+.section{
+margin:8px;background:#fff;border-radius:6px;
+}
+
+.section-title{
+background:#1565c0;color:#fff;padding:8px;
+}
+
+.item{
+display:flex;justify-content:space-between;
+padding:10px;font-size:13px;border-bottom:1px solid #eee;
+}
+
+.btn{
+background:#1e88e5;color:#fff;border:none;padding:5px 10px;
+border-radius:4px;
+}
 </style>
 
 </head>
 
 <body>
 
-<div class="header">🔥 Shankar Digital Hub 🔥</div>
+<!-- HERO -->
+<div class="hero">
+<h1>Shashi Digital Services 💼</h1>
+<p>यहाँ सभी सरकारी सेवाएं उपलब्ध हैं ✔️</p>
+<button class="start-btn" onclick="start()">Start Now</button>
+</div>
 
-<div class="ads">👉 Google AdSense Ad यहाँ लगेगा</div>
+<!-- MAIN PORTAL -->
+<div id="main" style="display:none;">
 
-<div class="container">
+<div class="header">CSC Digital Portal</div>
 
-<!-- LEFT -->
-<div class="column" id="left"></div>
+<div class="section">
+<div class="section-title">Services</div>
 
-<!-- RIGHT -->
-<div class="column" id="right"></div>
+<div class="item">
+<span>PAN Card</span>
+<button class="btn" onclick="pay(50,'PAN')">₹50</button>
+</div>
+
+<div class="item">
+<span>Income Certificate</span>
+<button class="btn" onclick="pay(30,'Income')">₹30</button>
+</div>
+
+<div class="item">
+<span>Ration Card</span>
+<button class="btn" onclick="pay(20,'Ration')">₹20</button>
+</div>
 
 </div>
 
-<div class="ads">👉 दूसरा Ad यहाँ</div>
-
-<a class="whatsapp" href="https://wa.me/917467002020">WhatsApp</a>
+</div>
 
 <script>
 
-// DATA (100+ style structure)
-const services = [
-  {cat:"सरकारी योजनाएँ", name:"PM Kisan", link:"https://pmkisan.gov.in"},
-  {cat:"सरकारी योजनाएँ", name:"PM Awas", link:"https://pmaymis.gov.in"},
-  {cat:"सरकारी योजनाएँ", name:"E Shram", link:"https://eshram.gov.in"},
-  {cat:"सरकारी योजनाएँ", name:"Scholarship", link:"https://scholarships.gov.in"},
-  {cat:"सरकारी योजनाएँ", name:"Ration Card", link:"https://nfsa.gov.in"},
-
-  {cat:"दस्तावेज", name:"Aadhaar", link:"https://uidai.gov.in"},
-  {cat:"दस्तावेज", name:"PAN Card", link:"https://incometax.gov.in"},
-  {cat:"दस्तावेज", name:"Passport", link:"https://passportindia.gov.in"},
-
-  {cat:"बिजली बिल", name:"UP Bijli", link:"https://uppcl.org"},
-  {cat:"बिजली बिल", name:"Bill Pay", link:"https://bharatbillpay.com"},
-
-  {cat:"मोबाइल सेवा", name:"SIM Check", link:"https://tafcop.dgtelecom.gov.in"},
-  {cat:"मोबाइल सेवा", name:"Mobile Block", link:"https://ceir.gov.in"},
-
-  {cat:"रोजगार", name:"Job Apply", link:"https://ncs.gov.in"},
-  {cat:"रोजगार", name:"Apprenticeship", link:"https://apprenticeshipindia.gov.in"},
-
-  {cat:"PDF Tools", name:"Merge PDF", link:"https://ilovepdf.com/merge_pdf"},
-  {cat:"PDF Tools", name:"Compress PDF", link:"https://ilovepdf.com/compress_pdf"},
-  {cat:"PDF Tools", name:"Edit PDF", link:"https://ilovepdf.com/edit-pdf"},
-
-  {cat:"Photo Tools", name:"Remove BG", link:"https://remove.bg"},
-  {cat:"Photo Tools", name:"Photo Edit", link:"https://pixlr.com"},
-];
-
-// AUTO GENERATE
-function load(){
-  let left="", right="";
-  let groups = {};
-
-  services.forEach(s=>{
-    if(!groups[s.cat]) groups[s.cat]=[];
-    groups[s.cat].push(s);
-  });
-
-  let i=0;
-  for(let cat in groups){
-    let html=`<div class="box"><div class="title">${cat}</div>`;
-    groups[cat].forEach(s=>{
-      html+=`<div class="item">
-      <img src="https://img.icons8.com/color/48/checked.png">
-      <a href="${s.link}" target="_blank">${s.name}</a></div>`;
-    });
-    html+=`</div>`;
-
-    if(i%2==0) left+=html;
-    else right+=html;
-    i++;
-  }
-
-  document.getElementById("left").innerHTML=left;
-  document.getElementById("right").innerHTML=right;
+function start(){
+document.querySelector(".hero").style.display="none";
+document.getElementById("main").style.display="block";
 }
 
-load();
+function pay(amount, service){
+
+var options = {
+    "key": "YOUR_KEY_ID",
+    "amount": amount * 100,
+    "currency": "INR",
+    "name": "Shashi CSC",
+    "description": service,
+
+    "handler": function (){
+        alert("Payment Successful ✅");
+    }
+};
+
+var rzp = new Razorpay(options);
+rzp.open();
+
+}
 
 </script>
 
 </body>
-</html>
+  </html>
